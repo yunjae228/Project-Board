@@ -1,9 +1,6 @@
 # Project-Board
 Kakao OAuth 사용 CRUD 게시판 만들기
 
-# Project-Board
-Kakao OAuth 활용 CRUD 게시판 만들기
-
 ## OAuth Flow
   - Vendors
     - Kakao
