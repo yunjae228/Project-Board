@@ -5,6 +5,8 @@ const app = express()
 app.set('views', 'src/views')
 app.set('view engine', 'pug')
 
+app.use('/public', express.static('src/public'))
+
 app.get('/', (req, res) => {
   res.render('signin')
 })

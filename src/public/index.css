@@ -25,3 +25,8 @@
     flex-grow: 1;
     text-align: center;
 }
+
+#kakao-login {
+    background-color: #fee500;
+    color: rgba(0, 0, 0, 0.85);
+}
