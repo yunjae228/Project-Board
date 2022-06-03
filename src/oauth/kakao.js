@@ -1,6 +1,9 @@
 // @ts-check
 
 const { default: fetch } = require('node-fetch')
+const { KAKAO_REST_KEY, KAKAO_REDIRECT_URI } = require('../common')
+const { createUserOrLogin } = require('../auth/auth')
+
 /**
  * @typedef kakaoTokenRes
  * @property {string} access_token
@@ -20,11 +23,8 @@ function setupKakaoLogin(app) {
 
     const url = new URL('https://kauth.kakao.com/oauth/token')
     url.searchParams.append('grant_type', 'authorization_code')
-    url.searchParams.append('client_id', 'a6fdea2b23f9e2d32b073bbf33ced3c7')
-    url.searchParams.append(
-      'redirect_uri',
-      'https://34f3-118-41-138-123.jp.ngrok.io/auth/kakao/callback'
-    )
+    url.searchParams.append('client_id', KAKAO_REST_KEY)
+    url.searchParams.append('redirect_uri', KAKAO_REDIRECT_URI)
     url.searchParams.append('code', code)
 
     const kakaoTokenRes = await fetch(url.toString(), {
@@ -46,9 +46,18 @@ function setupKakaoLogin(app) {
     const me = await userinfoRes.json()
     if (!me.id) {
       res.send(500).end()
-    } else {
-      console.log(me)
+      /* eslint-disable */
+      return
     }
+
+    const user = await createUserOrLogin({
+      platform: 'kakao',
+      platformUserId: me.id.toString(),
+      nickname: me.kakao_account.profile.nickname,
+      profileImageURL: me.kakao_account.profile.profile_image_url,
+    })
+
+    res.redirect('/')
   })
 }
 

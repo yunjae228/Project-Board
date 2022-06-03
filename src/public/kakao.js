@@ -11,7 +11,7 @@
 
   el.addEventListener('click', () => {
     Kakao.Auth.authorize({
-      redirectUri: `https://34f3-118-41-138-123.jp.ngrok.io/auth/kakao/callback`,
+      redirectUri: `https://aa8a-118-41-138-123.jp.ngrok.io/auth/kakao/callback`,
     })
   })
 })()
